@@ -1,0 +1,131 @@
+@charset "UTF-8";
+* {
+  box-sizing: border-box;
+}
+
+article {
+  margin: 4em 30px;
+}
+
+@media (min-width: 1024px) {
+  article {
+    width: 70%;
+    margin: 4em auto;
+  }
+}
+
+.last-revised {
+  margin-bottom: 35px;
+  text-align: left;
+  font-size: 0.8em;
+}
+
+@media (min-width: 1024px) {
+  .last-revised {
+    text-align: right;
+  }
+}
+
+section.UH-card.UH-layout-main {
+  width: auto;
+  max-width: none;
+  overflow-x: scroll;
+}
+
+h3 {
+  padding-top: 1em;
+}
+
+table {
+  font-size: 0.8em;
+  width: 100%;
+}
+td, th {
+  vertical-align: top;
+  text-align: left;
+  padding: 2px 5px;
+}
+thead {
+  background: #ddd;
+}
+th:nth-child(4),
+th:nth-child(5),
+td:nth-child(4),
+td:nth-child(5) {
+  text-align: center;
+}
+tr {
+  border-bottom: 1px solid #121212;
+}
+#advertising-table {
+  max-height: 600px;
+  overflow-y: scroll;
+}
+
+
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #F7F7F5;
+  color: #333333;
+  font-family: 'nyt-franklin', arial, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  word-break: break-all;
+}
+
+@media (min-width: 1024px) {
+  body > main {
+    min-height: 65vh;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'nyt-franklin', arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  margin-top: 0;
+}
+
+h1 {
+  font-family: 'nyt-cheltenham', georgia, serif;
+  font-weight: 200;
+  font-size: 40px;
+  line-height: 1.25em;
+  margin-bottom: 0;
+}
+
+h2 {
+  font-family: 'nyt-franklin', arial, sans-serif;
+   font-size: 30px;
+   font-weight: 300;
+   margin-bottom: 20px;
+}
+
+h3 {
+  font-family: 'nyt-franklin', arial, sans-serif;
+  font-size: 24px;
+  font-weight: 300;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+a {
+  color: #1A75BB;
+  text-decoration: none;
+}
+
+a:hover, a:active, a:focus {
+  text-decoration: underline;
+}

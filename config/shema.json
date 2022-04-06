@@ -1,0 +1,62 @@
+{
+    "@context": "http://schema.org",
+    "@type": "Organization",
+    "url": "https://jesusking.me",
+    "ethicsPolicy": "https://jesusking.me/terms/comunity",
+    "slogan": "Nul na le droit d'etre heureux tout seul.",
+    "contactPoint": [
+        {
+            "@type": "ContactPoint",
+            "telephone": "+237-697-898-466",
+            "contactType": "customer service",
+            "contactOption": "TollFree",
+            "areaServed": ["CM"],
+            "availableLanguage": ["English", "French"]
+        },
+        {
+            "@type": "ContactPoint",
+            "telephone": "+237-697-898-466",
+            "contactType": "technical support",
+            "contactOption": "TollFree",
+            "areaServed": ["CM"],
+            "availableLanguage": ["English", "French"]
+        },
+        {
+            "@type": "ContactPoint",
+            "telephone": "+237-697-898-466",
+            "contactType": "bill payment",
+            "contactOption": "TollFree",
+            "areaServed": ["US", "CA", "FR", "CM"],
+            "availableLanguage": ["English", "French"]
+        }
+    ],
+    "member": [
+        {
+            "@type": "Organization"
+        },
+        {
+            "@type": "Organization"
+        }
+    ],
+    "funder": {
+        "@type": "Person",
+        "name": "Jack Dan"
+    },
+    "image": "https://jesusking.me/assets/img/Jk_logo.png",
+    "logo": "https://jesusking.me/assets/img/favicon.png",
+    "alternateName": "JK",
+    "description": "Aider les couches les plus vulnerables à avoir accès à l'éducation, à la sante, à l'eau potable, à lenergie , à une alimentation saine et au bien être gratuitement ou à vil prix. Tel est notre leitmotiv",
+    "alumni": [
+        {
+            "@type": "Person",
+            "name": "Tsasse élisée"
+        },
+        {
+            "@type": "Person",
+            "name": "Bertrand"
+        }
+    ],
+    "telephone": "+237-697-898-466",
+    "email": "jesusking.jk.groups@gmail.com",
+    "name": "JesusKing"
+}

@@ -1,0 +1,139 @@
+#!/usr/bin/env node
+
+/**
+ * Global variable
+ */
+
+
+require('dotenv').config({ path: 'ENV_FILENAME' });
+/**
+ * Module dependencies.
+ */
+const debug = require('debug')('vuexpressbp:server');
+const http = require('http');
+const https = require('https');
+const fs = require('fs');
+const path = require('path');
+
+const app = require('../app');
+const io = require('../controllers/socketmanage');
+/**
+ * Get port from environment and store in Express.
+ */
+
+const httpPort = normalizePort(process.env.PORT || '3000');
+const httpsPort = normalizePort(process.env.PORTHTTPS || '443');
+
+app.set('port', (process.env.CONTEXT == 'secure')?httpsPort:httpPort);
+
+/**
+ * Create HTTP server.
+ */
+/*const app2 = require('express')();
+
+app2.get('*', (req, res) => {
+    const reqHost = req.headers.host
+        ? req.headers.host.replace(`:${httpPort}`, '')
+        :  'localhost';
+
+    res.redirect(301, `https://${reqHost}${httpsPort !== 443 ? `:${httpsPort}` : ''}${req.url || ''}`);
+});
+const httpServer = http.createServer(app2);
+*/
+
+/**
+ * Create HTTPS or HTTP server.
+ */
+
+const server = (process.env.CONTEXT == 'secure')?https.createServer({
+    hostname: process.env.HOST,
+    key: fs.readFileSync(path.join(__dirname, '../key/server.key')),
+    cert: fs.readFileSync(path.join(__dirname, '../key/server.cert')),
+}, app): http.createServer({ hostname: process.env.HOST },app);
+
+
+io.attach(server);
+io.manage(io);
+
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+if(process.env.CONTEXT == 'secure'){
+    startHttpsServer();
+}else{
+    startHttpServer();
+
+}
+
+
+function startHttpsServer() {
+    server.listen(httpsPort, process.env.IP);
+    server.on('error', onError);
+    server.on('listening', onListening);
+}
+
+function startHttpServer() {
+    server.listen(httpPort, process.env.IP);
+    server.on('error', onError);
+    server.on('listening', onListening);
+}
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+    const port = parseInt(val, 10);
+
+    if (isNaN(port)) {
+    // named pipe
+        return val;
+    }
+
+    if (port >= 0) {
+    // port number
+        return port;
+    }
+
+    return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
+
+    const bind = typeof httpsPort === 'string'
+        ? `Pipe ${httpsPort}`
+        : `Port ${httpsPort}`;
+
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+        case 'EACCES':
+            console.error(`${bind} requires elevated privileges`);
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(`${bind} is already in use`);
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+    const addr = server.address();
+    const bind = typeof addr === 'string'
+        ? `pipe ${addr}`
+        : `port ${addr.port}`;
+    debug(`Listening on ${bind}`);
+}

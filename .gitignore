@@ -1,0 +1,17 @@
+/.idea
+/.sublime
+/.vscode
+
+node_modules
+**/node_modules/*
+
+**/*.log
+*.log
+images/*/**/*
+uploads/*/**/*
+public
+public/**/*
+
+coverage/
+/.env
+/.env.vue-app

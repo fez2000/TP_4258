@@ -1,0 +1,5 @@
+Using the local CA at "/home/eugene/.local/share/mkcert" ✨
+ERROR: failed to execute "certutil -A": exit status 255
+
+certutil: function failed: SEC_ERROR_READ_ONLY: security library: read-only database.
+

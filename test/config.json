@@ -1,0 +1,17 @@
+{
+    "post_voter": {
+        "name": "jean",
+        "email": "eugenefezeu@gmail.com",
+        "password": "helllo"
+    },
+    "post_voter_fake": {
+        "name": "je",
+        "email": "jean@gmailcom",
+        "password": "he"
+    },
+    "name": "talla jean",
+    "post_project": {
+        "name": "voteApp",
+        "short_description": "community app"
+    }
+}

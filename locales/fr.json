@@ -1,0 +1,74 @@
+{
+	"processnotstartbyme": "if you are not the author of this action just make sure you ignore it",
+	"welcome": {
+		"title": "%s join ours community",
+		"description": "we are now %d members in the community the more we are, the more we laugh."
+	},
+	"welcomeToNewUser": {
+		"subject": "Welcome %s in %s community",
+		"title": "Welcome in %s community %s",
+		"description": "Welcome to our community %s together we will help the most vulnerable strata to have access to education, health, drinking water, energy, healthy food and well-being for free or at low cost. This is our leitmotif"
+	},
+	"picture": {
+		"title": "%s change him profil picture",
+		"description": "Do not miss to see and comment on the new profile photo of %s. Active and dynamic furrows to bring our community to life."
+	},
+	"the": "The",
+	"and": "and",
+	"on": "on",
+	"follow": "Follow",
+	"home": "Home",
+	"verificationEmail": {
+		"subject": "Mail verification link for %s",
+		"title": "Verify your email address %s",
+		"description": "Please confirm your email address %s by clicking on the link below.",
+		"reason": "We may need to send you critical information about our service and it is important that we have an accurate email address.",
+		"btn": "Confirm email address"
+	},
+	"resetPasswordByLink": {
+		"subject": "Link to reset your account password for %s.",
+		"title": "Reset password",
+		"description": "Click on the link below to reset your password",
+		"btn": "Reset your account password"
+	},
+	"resetPasswordByCode": {
+		"subject": "Code to reset your account password for %s.",
+		"title": "Reset you account password",
+		"description": "Dear %s use the code below to reset your account password."
+	},
+	"newUserMessage": {
+		"subject": "New member in %s community",
+		"btn": "See profil"
+	},
+	"verify": {
+		"t_v_expired": "Token validity has expired",
+		"error": "Error occure went find voter",
+		"verifed": "Account is verifed",
+		"t_d_match": "Token don't matche",
+		"u_notfound": "No user find with this id"
+	},
+	"retryverify": {
+		"error": "Error occure went find voter",
+		"u_notfound": "No user find with this emaiil",
+		"a_verifed": "Account is verifed"
+	},
+	"project_update": {
+		"c_subject": "A members submit a new project please check it",
+		"p_accepted": "Your project has been accepted by %s",
+		"a_subject": "One document was added to project %s",
+		"subject": "The project %s has been updated",
+		"title": "Project: <b>%s</b>",
+		"r_title": "Your project <b><<  %s >></b> has been rejected",
+		"description": "<p>Docs was removed from this project.</p><h2>Project description</h2><p>%s</p>",
+		"a_description": "<p>Doc was added to this project.</p><h2>Project description</h2><p>%s</p>",
+		"d_r_description": "<p><b>About<b></p><p>%s</p><p><b>Description</b></p><p>%s</p>",
+		"d_r_title": "One document was removed from this project",
+		"d_a_title": "One doc was added to this project",
+		"n_subject": "We have a new project in ours community",
+		"n_description": "<p><b>%s</b></p><p>%s</p><br/><p>%s</p>",
+		"r_subject": "Your submitted project has been not accepted by %s",
+		"i_update": "this project infos has been update. %s",
+		"p_title": "Image has been update to <b><<%s>></b>",
+		"i_t_update": "Project info update: %s"
+	}
+}
