@@ -10,9 +10,9 @@ const autoprefixer = require("autoprefixer");
 const { VuetifyProgressiveModule } = require("vuetify-loader");
 const { InjectManifest } = require("workbox-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+require("dotenv").config();
 //const PrerenderSPAPlugin = require("prerender-spa-plugin");
-//const Renderer = PrerenderSPAPlugin.PuppeteerRenderer;
-
+//const Renderer = PrerenderSPAPlugin.PuppeteerRenderer; 
 const isDev = process.env.NODE_ENV === "development";
 const SRC_DIR = path.resolve(__dirname, "src");
 const DIST = path.resolve(__dirname, "public");
@@ -99,15 +99,24 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: [
-                    "vue-style-loader",
-                    { loader: "css-loader", options: { sourceMap: !isDev } },
-                    { loader: "sass-loader", options: { sourceMap: !isDev } }
+                  'vue-style-loader',
+                  'css-loader',
+                  {
+                    loader: 'sass-loader',
+                    options: {
+                      // you can also read from a file, e.g. `variables.scss`
+                      // use `prependData` here if sass-loader version = 8, or
+                      // `data` if sass-loader version < 8
+                      additionalData: `$color: red;`
+                    }
+                  }
                 ]
             },
             {
                 test: /\.sass$/,
                 use: [
                     "vue-style-loader",
+                    "style-loader",
                     { loader: "css-loader", options: { sourceMap: !isDev } },
                     {
                         loader: "sass-loader",
