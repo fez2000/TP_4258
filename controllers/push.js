@@ -2,7 +2,7 @@ const webPush = require("web-push");
 const mongoose = require("mongoose");
 
 const Subscription = mongoose.model("Subscription");
-webPush.setGCMAPIKey(process.env.GCM_API_KEY);
+//webPush.setGCMAPIKey(process.env.GCM_API_KEY);
 webPush.setVapidDetails(
     process.env.BASE_URL,
     process.env.VAPID_PUBLIC_KEY,

@@ -1,4 +1,5 @@
 window.fbAsyncInit = function() {
+   try{
     FB.init({
         appId: "2651383734976450",
         cookie: true,
@@ -8,6 +9,10 @@ window.fbAsyncInit = function() {
     FB.getLoginStatus(function(response) {
         FB.statePlugin = response;
     });
+   }catch(e){
+    console.log("error in ours app ")
+   }
+    
 };
 (function(d, s, id) {
     var js,
