@@ -255,7 +255,7 @@ export default {
   padding: 0;
 }
 
-.profile-tabs /deep/ {
+.profile-tabs::v-deep * {
   .md-card-tabs .md-list {
     justify-content: center;
   }

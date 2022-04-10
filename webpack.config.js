@@ -7,8 +7,12 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const LiveReloadPlugin = require("webpack-livereload-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 const autoprefixer = require("autoprefixer");
-const { VuetifyProgressiveModule } = require("vuetify-loader");
-const { InjectManifest } = require("workbox-webpack-plugin");
+const {
+    VuetifyProgressiveModule
+} = require("vuetify-loader");
+const {
+    InjectManifest
+} = require("workbox-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 //const PrerenderSPAPlugin = require("prerender-spa-plugin");
 //const Renderer = PrerenderSPAPlugin.PuppeteerRenderer;
@@ -17,12 +21,10 @@ const isDev = process.env.NODE_ENV === "development";
 const SRC_DIR = path.resolve(__dirname, "src");
 const DIST = path.resolve(__dirname, "public");
 
-const entries = [
-    {
-        name: "main",
-        filename: `${SRC_DIR}/main.js`
-    }
-];
+const entries = [{
+    name: "main",
+    filename: `${SRC_DIR}/main.js`
+}];
 
 const appDirectory = fs.realpathSync(process.cwd());
 process.env.NODE_PATH = (process.env.NODE_PATH || "")
@@ -34,7 +36,7 @@ process.env.NODE_PATH = (process.env.NODE_PATH || "")
 module.exports = {
     watch: isDev,
     watchOptions: {
-        ignored: /node_modules/
+        ignored: /(node_modules|bower_components)/,
     },
     entry: {
         ...entries.reduce((acc, entry) => {
@@ -47,9 +49,9 @@ module.exports = {
         path: DIST,
         publicPath: "/",
         filename:
-           !isDev
-                ? "[name].[hash:16].js"
-                : "[name].js"
+            !isDev ?
+            "[name].[hash:16].js" :
+            "[name].js"
     },
 
     resolve: {
@@ -65,19 +67,20 @@ module.exports = {
     },
 
     module: {
-        rules: [
-            {
+        rules: [{
                 resourceQuery: /blockType=i18n/,
                 type: "javascript/auto",
                 loader: "@kazupon/vue-i18n-loader"
             },
             {
-                test: /\.ts$/,
+                test: /\.ts$/i,
                 loader: "ts-loader",
-                options: { appendTsSuffixTo: [/\.vue$/] }
+                options: {
+                    appendTsSuffixTo: [/\.vue$/]
+                }
             },
             {
-                test: /\.vue$/,
+                test: /\.vue$/i,
                 loader: require.resolve("vue-loader"),
                 include: SRC_DIR,
                 options: {
@@ -90,39 +93,65 @@ module.exports = {
                 }
             },
             {
-                test: /\.js$/,
-                exclude: /(node_modules)/,
+                test: /\.m?js$/,
+                exclude: /(node_modules|bower_components)/,
                 include: SRC_DIR,
                 loader: require.resolve("babel-loader"),
-                options: { cacheDirectory: true, sourceMap: !isDev }
-            },
-            {
-                test: /\.scss$/,
-                use: [
-                    "vue-style-loader",
-                    { loader: "css-loader", options: { sourceMap: !isDev } },
-                    { loader: "sass-loader", options: { sourceMap: !isDev } }
-                ]
-            },
-            {
-                test: /\.sass$/,
-                use: [
-                    "vue-style-loader",
-                    { loader: "css-loader", options: { sourceMap: !isDev } },
+                options: {
+                    cacheDirectory: true,
+                    sourceMap: !isDev,
+                    "presets": [["@babel/preset-env",
                     {
-                        loader: "sass-loader",
-                        options: {
-                            sourceMap: isDev,
-                            implementation: require("sass"),
-                            sassOptions: {
-                                fiber: require("fibers")
-                            }
-                        }
-                    }
-                ]
+                      "targets": {
+                        "edge": "17",
+                        "firefox": "60",
+                        "chrome": "67",
+                        "safari": "11.1"
+                      }
+                    }],"@babel/preset-typescript","@babel/preset-react"],
+                "plugins": [["@babel/plugin-proposal-decorators", { "legacy": true }],"syntax-dynamic-import","@babel/plugin-transform-runtime","transform-class-properties","@babel/plugin-proposal-class-properties","@babel/plugin-proposal-private-property-in-object"],
+                
+                }
             },
             {
-                test: /\.css$/,
+                test: /\.s[ac]ss$/i,
+                use: [
+                  "vue-style-loader",
+                  "style-loader",
+                  "css-loader",
+                  {
+                    loader: require.resolve("postcss-loader"),
+                    options: {
+                        ident: "postcss",
+                        plugins: () => [
+                            require("postcss-flexbugs-fixes"), //eslint-disable-line
+                            autoprefixer({
+                                browsers: [
+                                    ">1%",
+                                    "last 4 versions",
+                                    "Firefox ESR",
+                                    "not ie < 9" // React doesn't support IE8 anyway
+                                ],
+                                flexbox: "no-2009"
+                            })
+                        ]
+                    }
+                },
+                  {
+                    loader: "sass-loader",
+                    options: {
+                      webpackImporter: true,
+                      sourceMap: isDev,
+                    //  implementation: require("sass"),
+                      sassOptions: {
+                        outputStyle: "compressed",
+                      },
+                    },
+                  },
+                ],
+              },
+            {
+                test: /\.css$/i,
                 use: [
                     require.resolve("style-loader"),
                     {
@@ -243,7 +272,9 @@ module.exports = {
     devtool: isDev ? 'cheap-module-source-map' : 'source-map',
 
     plugins: [
-        new webpack.LoaderOptionsPlugin({ debug: true }),
+        new webpack.LoaderOptionsPlugin({
+            debug: true
+        }),
         new VueLoaderPlugin(),
         new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /ru/),
         new Dotenv({
@@ -253,16 +284,15 @@ module.exports = {
         new CleanWebpackPlugin(DIST),
         ...entries.map(
             entry =>
-                new HtmlWebpackPlugin({
-                    title: "vue",
-                    favicon: "src/assets/favicons/favicon.ico",
-                    template: `${SRC_DIR}/index.html`,
-                    filename: "index.html",
-                    chunks: ["vendor", "index", entry.name]
-                })
+            new HtmlWebpackPlugin({
+                title: "vue",
+                favicon: "src/assets/favicons/favicon.ico",
+                template: `${SRC_DIR}/index.html`,
+                filename: "index.html",
+                chunks: ["vendor", "index", entry.name]
+            })
         ),
-        new CopyWebpackPlugin([
-            {
+        new CopyWebpackPlugin([{
                 from: path.resolve(__dirname, "src/assets"),
                 to: path.resolve(__dirname, "public/assets"),
                 toType: "dir"
@@ -301,10 +331,9 @@ module.exports = {
             swSrc: "./src/push.js",
             swDest: "service-worker.js",
             exclude: [/\.map$/],
-            importWorkboxFrom:
-                process.env.mode === "production" ? "cdn" : "local"
+            importWorkboxFrom: process.env.mode === "production" ? "cdn" : "local"
             //    maximumFileSizeToCacheInBytes: 7 * 1024 * 1024
         }),
-        
+
     ]
 };

@@ -2,11 +2,11 @@
 <script>
 
 	import componentFactory from '@/fonctions/pdf/componentFactory.js'
-
+	import * as PDFJS from 'pdfjs-dist/legacy/build/pdf.js' ;
 	if ( process.env.VUE_ENV !== 'server' ) {
 
 		var pdfjsWrapper = require('@/fonctions/pdf/pdfjsWrapper.js').default;
-		var PDFJS = require('pdfjs-dist/build/pdf.js');
+	
 
 		if ( typeof window !== 'undefined' && 'Worker' in window && navigator.appVersion.indexOf('MSIE 10') === -1 ) {
 
