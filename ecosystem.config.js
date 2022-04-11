@@ -1,8 +1,8 @@
 module.exports = {
   apps : [{
     name: 'JesusKing',
-    script: './app/',
-    cwd: 'npm run prod:server',
+    script: './app/bin/www',
+    cwd: 'npm run prod',
 
     // Options reference: https://pm2.io/doc/en/runtime/reference/ecosystem-file/
 //    args: 'one two',
@@ -20,6 +20,7 @@ module.exports = {
 
   deploy : {
     production : {
+      "key"  : "~/.ssh/id_rsa.pub",
       user : 'huarloro236',
       host : '41.202.207.4',
       ref  : 'origin/fez2000',
