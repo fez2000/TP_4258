@@ -49,7 +49,7 @@ const server = (process.env.CONTEXT == 'secure')?https.createServer({
     hostname: process.env.HOST,
     key: fs.readFileSync(path.join(__dirname, '../key/server.key')),
     cert: fs.readFileSync(path.join(__dirname, '../key/server.cert')),
-}, app): http.createServer({ hostname: process.env.HOST },app);
+}, app):( http.createServer({ hostname: process.env.HOST },app));
 
 
 io.attach(server);

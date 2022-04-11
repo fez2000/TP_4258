@@ -57,7 +57,7 @@ const { corsOptions } = require("./config/cors");
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 if (process.env.NODE_ENV !== "test") {
-    app.use(cors(corsOptions));
+  //  app.use(cors(corsOptions));
 }
 
 app.use(helmet());

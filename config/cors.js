@@ -5,6 +5,8 @@ const whitelist = [
     'http://localhost:3000',
     'https://localhost:3001',
     'https://localhost',
+    'http://community.nextstep.cm/',
+    'https://community.nextstep.cm/'
     
 ];
 exports.whitelist = whitelist;

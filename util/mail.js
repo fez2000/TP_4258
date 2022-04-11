@@ -3,17 +3,33 @@
 
 const nodemailer = require('nodemailer');
 
+let config = {
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL_USER, // generated ethereal user
+        pass: process.env.EMAIL_PASSWORD, // generated ethereal password
+    }
+};
 
-exports.mailApi = (email, mail) => {
-    // create reusable transporter object using the default SMTP transport
-    const transporter = nodemailer.createTransport({
-        // true for 465, false for other ports
-        service: 'gmail',
+if(!process.env.EMAIL_SERVICE){
+    config = {
+        // true for 465, false for other ports       
+        host: process.env.EMAIL_HOST,
+        port: process.env.EMAIL_HOST_PORT,
+        secure: true, // use TLS
         auth: {
             user: process.env.EMAIL_USER, // generated ethereal user
-            pass: process.env.EMAIL_PASSWORD, // generated ethereal password
+            pass: process.env.EMAIL_PASSWORD,
         },
-    });
+        tls: {
+            // do not fail on invalid certs
+            rejectUnauthorized: false,
+        },
+    }
+}
+exports.mailApi = (email, mail) => {
+    // create reusable transporter object using the default SMTP transport
+    const transporter = nodemailer.createTransport(config);
 
     // send mail with defined transport object
     return transporter.sendMail({
