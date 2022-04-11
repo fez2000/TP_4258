@@ -85,7 +85,7 @@ app.use(detector.middleware());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false, limit: "20mb" }));
 app.use(cookieParser(token.generate()));
-app.use(session({ secret: token.generate() }));
+app.use(session({ secret: "gkfgo,fkg,fklgflkg,lkf,gklf@fdfndjkfndk133" }));
 app.use(i18n.init);
 
 if (process.env.NODE_ENV !== "test") {
