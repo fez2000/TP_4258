@@ -22,7 +22,7 @@ module.exports = {
     production : {
       "key"  : "~/.ssh/id_rsa.pub",
       user : 'huarloro236',
-      host : '41.202.207.4',
+      host : '178.238.236.96',
       ref  : 'origin/fez2000',
       repo : 'git@github.com:fez2000/TP_4258.git',
       path : '/var/www/production',

@@ -15,15 +15,15 @@ if(!process.env.EMAIL_SERVICE){
     config = {
         // true for 465, false for other ports       
         host: process.env.EMAIL_HOST,
-        port: process.env.EMAIL_HOST_PORT,
-        secure: true, // use TLS
+        port: parseInt(process.env.EMAIL_HOST_PORT)||587,
+        secure: false, // use TLS
         auth: {
             user: process.env.EMAIL_USER, // generated ethereal user
             pass: process.env.EMAIL_PASSWORD,
         },
         tls: {
             // do not fail on invalid certs
-            rejectUnauthorized: false,
+            rejectUnauthorized: true,
         },
     }
 }
