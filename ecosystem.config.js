@@ -1,7 +1,8 @@
 module.exports = {
   apps : [{
     name: 'JesusKing',
-    script: 'npm run prod:server',
+    script: './app/',
+    cwd: 'npm run prod:server',
 
     // Options reference: https://pm2.io/doc/en/runtime/reference/ecosystem-file/
 //    args: 'one two',
@@ -19,10 +20,10 @@ module.exports = {
 
   deploy : {
     production : {
-      user : 'node',
-      host : '212.83.163.1',
-      ref  : 'origin/master',
-      repo : 'git@github.com:repo.git',
+      user : 'huarloro236',
+      host : '41.202.207.4',
+      ref  : 'origin/fez2000',
+      repo : 'git@github.com:fez2000/TP_4258.git',
       path : '/var/www/production',
       'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
     }
