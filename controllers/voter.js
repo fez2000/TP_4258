@@ -286,10 +286,10 @@ exports.add = function (req, res) {
                         console.log('localhost:3000->db error 503');
                         return res.send({ status: null, errors: err1 });
                     }
-                   // fs.mkdirSync(path.join(__dirname, '../images', `${result1._id}`));
-                   // const pt = `${result1._id}/${removeSpace(result1.name) + timeToString(date)}.${userImg.type}`;
-                    //fs.copyFileSync(path.join(__dirname, '../images', `${userImg.name}.${userImg.type}`), path.join(__dirname, '../images', pt));
-                    /*Doc.create({
+                    fs.mkdirSync(path.join(__dirname, '../images', `${result1._id}`));
+                    const pt = `${result1._id}/${removeSpace(result1.name) + timeToString(date)}.${userImg.type}`;
+                    fs.copyFileSync(path.join(__dirname, '../images', `${userImg.name}.${userImg.type}`), path.join(__dirname, '../images', pt));
+                    Doc.create({
                         time_create: date,
                         time_update: date,
                         name: req.body.name,
@@ -305,7 +305,6 @@ exports.add = function (req, res) {
                             });
                         }
                     });
-                    */
                     const mail = mailTemplate.getTemplate('verificationEmail');
                     mail.subject = res.__('verificationEmail.subject', process.env.APP_NAME);
                     mail.html = mail.html
@@ -876,7 +875,7 @@ exports.logout = function (req, res) {
 };
 
 exports.googleLogin = (req, res) => {
-    let tk = (req.body.Zi)?req.body.Zi.access_token:(req.body.wc)?  req.body.wc.access_token: '';
+    let tk = (req.body.Zi)?req.body.Zi.id_token:(req.body.wc)?  req.body.wc.id_token: '';
     verify(tk).then((doc) => {
         if (doc) {
             const url = `https://oauth2.googleapis.com/tokeninfo?id_token=${tk}`;

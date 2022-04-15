@@ -1,18 +1,18 @@
 window.fbAsyncInit = function() {
-   try{
-    FB.init({
-        appId: "2651383734976450",
-        cookie: true,
-        xfbml: true,
-        version: "v4.0"
-    });
-    FB.getLoginStatus(function(response) {
-        FB.statePlugin = response;
-    });
-   }catch(e){
-    console.log("error in ours app ")
-   }
-    
+    try{
+        FB.init({
+            appId: "2651383734976450",
+            cookie: true,
+            xfbml: true,
+            version: "v4.0"
+        });
+        FB.getLoginStatus(function(response) {
+            FB.statePlugin = response;
+        });
+    }catch(e){
+        console.log(e)
+    }
+  
 };
 (function(d, s, id) {
     var js,

@@ -1,4 +1,4 @@
-import "babel-polyfill";
+//import "babel-polyfill";
 import "core-js";
 import "es6-promise/auto";
 import Vue from "vue";
@@ -34,17 +34,19 @@ import Notifications from "./components/NotificationPlugin";
 import MaterialKit from "./plugins/material-kit";
 import "vue-plyr/dist/vue-plyr.css";
 import "intersection-observer";
-import "froala-editor/js/plugins.pkgd.min.js";
+//import "froala-editor/js/plugins.pkgd.min.js";
 //Import third party plugins
-import "froala-editor/js/third_party/embedly.min";
-import "froala-editor/js/third_party/font_awesome.min";
-import "froala-editor/js/third_party/spell_checker.min";
-import "froala-editor/js/third_party/image_tui.min";
+//import "froala-editor/js/third_party/embedly.min";
+//import "froala-editor/js/third_party/font_awesome.min";
+//import "froala-editor/js/third_party/spell_checker.min";
+//import "froala-editor/js/third_party/image_tui.min";
 // Import Froala Editor css files.
-import "froala-editor/css/froala_editor.pkgd.min.css";
+//import "froala-editor/css/froala_editor.pkgd.min.css";
+import VueTelInput from 'vue-tel-input'
+
 
 // Import and use Vue Froala lib.
-import VueFroala from "vue-froala-wysiwyg";
+//import VueFroala from "vue-froala-wysiwyg";
 // configure router
 const router = new VueRouter({
     mode: "history",
@@ -86,7 +88,8 @@ Vue.prototype.$emojione = emojione;
 Vue.use(VueRouter);
 Vue.use(VueHead);
 Vue.use(MaterialKit);
-Vue.use(VueFroala);
+//Vue.use(VueFroala);
+Vue.use(VueTelInput)
 
 Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);
@@ -97,6 +100,7 @@ Vue.use(SocialSharing);
 Vue.use(Viewer);
 
 Vue.use(CKEditor);
+
 Vue.mixin({
     data() {
         return {

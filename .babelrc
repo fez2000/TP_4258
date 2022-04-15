@@ -1,13 +1,34 @@
+
 {
-    "presets": [["@babel/preset-env",
-        {
-          "targets": {
-            "edge": "17",
-            "firefox": "60",
-            "chrome": "67",
-            "safari": "11.1"
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules": false,
+        "useBuiltIns": "usage",
+        "corejs": 3
+      }
+    ],
+    "@vue/cli-plugin-babel/preset"
+  ],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-proposal-class-properties"
+  ],
+  "env": {
+    "production": {
+      "only": ["src"],
+      "plugins": [
+        [
+          "transform-react-remove-prop-types",
+          {
+            "removeImport": true
           }
-        }],"@babel/preset-typescript","@babel/preset-react"],
-    "plugins": [["@babel/plugin-proposal-decorators", { "legacy": true }],"syntax-dynamic-import","@babel/plugin-transform-runtime","transform-class-properties","@babel/plugin-proposal-class-properties","@babel/plugin-proposal-private-property-in-object"],
-    
+        ],
+        "@babel/plugin-transform-react-inline-elements",
+        "@babel/plugin-transform-react-constant-elements"
+      ]
+    }
+  }
 }

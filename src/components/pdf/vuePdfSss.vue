@@ -5,14 +5,14 @@
 
 	import componentFactory from '@/fonctions/pdf/componentFactory';
 	import pdfjsWrapper from '@/fonctions/pdf/pdfjsWrapper';
-    import * as PDFJS from 'pdfjs-dist/legacy/build/pdf.js' ;
-	
+
+	var PDFJS = require('pdfjs-dist/build/pdf.js');
 
 	if ( process.env.VUE_ENV !== 'server' ) {
 
 		if ( typeof window !== 'undefined' && 'Worker' in window ) {
 
-			var PdfjsWorker = require('worker-loader!pdfjs-dist/legacy/build/pdf.worker.js');
+			var PdfjsWorker = require('worker-loader!pdfjs-dist/build/pdf.worker.js');
 			PDFJS.GlobalWorkerOptions.workerPort = new PdfjsWorker();
 		}
 	}

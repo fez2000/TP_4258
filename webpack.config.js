@@ -1,18 +1,23 @@
 const path = require("path");
 const fs = require("fs");
 const webpack = require("webpack");
-const Dotenv = require("dotenv-webpack");
+
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const LiveReloadPlugin = require("webpack-livereload-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 const autoprefixer = require("autoprefixer");
+const CompressionPlugin = require('compression-webpack-plugin');
+var PurgeCssPlugin = require('purgecss-webpack-plugin');
+var glob = require('glob-all');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const {
     VuetifyProgressiveModule
 } = require("vuetify-loader");
 const {
     InjectManifest
 } = require("workbox-webpack-plugin");
+const Dotenv = require("dotenv-webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 //const PrerenderSPAPlugin = require("prerender-spa-plugin");
 //const Renderer = PrerenderSPAPlugin.PuppeteerRenderer;
@@ -27,6 +32,7 @@ const entries = [{
 }];
 
 const appDirectory = fs.realpathSync(process.cwd());
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 process.env.NODE_PATH = (process.env.NODE_PATH || "")
     .split(path.delimiter)
     .filter(folder => folder && !path.isAbsolute(folder))
@@ -35,6 +41,7 @@ process.env.NODE_PATH = (process.env.NODE_PATH || "")
 
 module.exports = {
     watch: isDev,
+    devtool: true,
     watchOptions: {
         ignored: /(node_modules|bower_components)/,
     },
@@ -50,14 +57,15 @@ module.exports = {
         publicPath: "/",
         filename:
             !isDev ?
-            "[name].[hash:16].js" :
+            "[name].[chunkhash].[contenthash].js" :
             "[name].js"
     },
 
     resolve: {
+       // fallback: { "crypto": require.resolve("crypto-browserify") },
         modules: [
-            "node_modules",
-            path.resolve(__dirname, "node_modules")
+            path.resolve(__dirname, "node_modules"),
+            path.resolve(__dirname, "bower_components")            
         ].concat(process.env.NODE_PATH.split(path.delimiter).filter(Boolean)),
         alias: {
             vue$: "vue/dist/vue.js",
@@ -71,6 +79,10 @@ module.exports = {
                 resourceQuery: /blockType=i18n/,
                 type: "javascript/auto",
                 loader: "@kazupon/vue-i18n-loader"
+            },
+            {
+                          test: /\.worker\.js$/,
+                          loader: "worker-loader"
             },
             {
                 test: /\.ts$/i,
@@ -100,30 +112,23 @@ module.exports = {
                 options: {
                     cacheDirectory: true,
                     sourceMap: !isDev,
-                    "presets": [["@babel/preset-env",
-                    {
-                      "targets": {
-                        "edge": "17",
-                        "firefox": "60",
-                        "chrome": "67",
-                        "safari": "11.1"
-                      }
-                    }],"@babel/preset-typescript","@babel/preset-react"],
-                "plugins": [["@babel/plugin-proposal-decorators", { "legacy": true }],"syntax-dynamic-import","@babel/plugin-transform-runtime","transform-class-properties","@babel/plugin-proposal-class-properties","@babel/plugin-proposal-private-property-in-object"],
-                
+                    envName: !isDev ? "production" : "development"
                 }
             },
             {
                 test: /\.s[ac]ss$/i,
                 use: [
+                   
                   "vue-style-loader",
-                  "style-loader",
+                  !isDev? MiniCssExtractPlugin.loader:
+                    "style-loader",
                   "css-loader",
                   {
                     loader: require.resolve("postcss-loader"),
-                    options: {
+                    /*options: {
                         ident: "postcss",
                         plugins: () => [
+                            require("postcss-focus"), 
                             require("postcss-flexbugs-fixes"), //eslint-disable-line
                             autoprefixer({
                                 browsers: [
@@ -135,7 +140,7 @@ module.exports = {
                                 flexbox: "no-2009"
                             })
                         ]
-                    }
+                    }*/
                 },
                   {
                     loader: "sass-loader",
@@ -153,8 +158,8 @@ module.exports = {
             {
                 test: /\.css$/i,
                 use: [
-                    require.resolve("style-loader"),
-                    {
+                    !isDev? MiniCssExtractPlugin.loader:
+                    "style-loader", {
                         loader: require.resolve("css-loader"),
                         options: {
                             importLoaders: 1,
@@ -163,7 +168,7 @@ module.exports = {
                     },
                     {
                         loader: require.resolve("postcss-loader"),
-                        options: {
+                       /* options: {
                             ident: "postcss",
                             plugins: () => [
                                 require("postcss-flexbugs-fixes"), //eslint-disable-line
@@ -177,7 +182,7 @@ module.exports = {
                                     flexbox: "no-2009"
                                 })
                             ]
-                        }
+                        }*/
                     }
                 ],
                 include: /\.module\.css$/
@@ -185,7 +190,8 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: [
-                    require.resolve("style-loader"),
+                   !isDev? MiniCssExtractPlugin.loader:
+                    "style-loader",
                     {
                         loader: require.resolve("css-loader"),
                         options: {
@@ -194,7 +200,7 @@ module.exports = {
                     },
                     {
                         loader: require.resolve("postcss-loader"),
-                        options: {
+                        /*options: {
                             ident: "postcss",
                             plugins: () => [
                                 require("postcss-flexbugs-fixes"), //eslint-disable-line
@@ -206,9 +212,10 @@ module.exports = {
                                         "not ie < 9" // React doesn't support IE8 anyway
                                     ],
                                     flexbox: "no-2009"
-                                })
+                                }),
+                             //   require('cssnano')
                             ]
-                        }
+                        }*/
                     }
                 ],
                 exclude: /\.module\.css$/
@@ -216,7 +223,9 @@ module.exports = {
             {
                 test: /\.styl(us)$/,
                 use: [
+                    
                     "vue-style-loader",
+                    !isDev? MiniCssExtractPlugin.loader:
                     "style-loader",
                     "css-loader",
                     {
@@ -243,7 +252,7 @@ module.exports = {
                 loader: require.resolve("file-loader"),
                 options: {
                     limit: 10000,
-                    name: "assets/images/[name].[hash:8].[ext]"
+                    name: !isDev ? "assets/images/[name].[contenthash].[ext]" : "assets/images/[name].[ext]"
                 }
             },
             {
@@ -251,13 +260,21 @@ module.exports = {
                 loader: require.resolve("file-loader"),
                 options: {
                     limit: 10000,
-                    name: "assets/fonts/[name].[hash:8].[ext]"
+                    name: !isDev ? "assets/fonts/[name].[contenthash].[ext]" : "assets/fonts/[name].[ext]" 
                 }
             }
         ]
     },
 
     optimization: {
+        minimize: !isDev,
+        minimizer: [new CssMinimizerPlugin()],
+        // Once your build outputs multiple chunks, this option will ensure they share the webpack runtime
+        // instead of having their own. This also helps with long-term caching, since the chunks will only
+        // change when actual code changes, not the webpack runtime.
+        runtimeChunk: {
+          name: 'runtime',
+        },
         splitChunks: {
             cacheGroups: {
                 commons: {
@@ -323,6 +340,7 @@ module.exports = {
                 toType: "file"
             }
         ]),
+     
         new LiveReloadPlugin({
             protocol: "http",
             appendScriptTag: true
@@ -331,9 +349,31 @@ module.exports = {
             swSrc: "./src/push.js",
             swDest: "service-worker.js",
             exclude: [/\.map$/],
-            importWorkboxFrom: process.env.mode === "production" ? "cdn" : "local"
+           // importWorkboxFrom: process.env.mode === "production" ? "cdn" : "local"
             //    maximumFileSizeToCacheInBytes: 7 * 1024 * 1024
         }),
-
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: isDev ? "[name].css" : "[name].[contenthash].css",
+            chunkFilename: isDev ? "[id].css" : "[id].[contenthash].css",
+        }),new PurgeCssPlugin({
+            paths: glob.sync([
+                './src/**/*.html',
+                './src/**/*.js',
+                './src/**/*.vue',
+            ]),
+                safelist: [/easy-autocomplete/,/snackbar/,/bottom-left/],
+                  
+        }),
+        new CompressionPlugin({
+            //    filename: '[path].gz[query]',
+            algorithm: 'gzip',
+            test: new RegExp('\\.(js|css)$'),
+            threshold: 10240,
+            exclude: /.map$/,
+            minRatio: 0.8
+        }),   
+        
     ]
 };

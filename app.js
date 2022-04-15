@@ -95,8 +95,9 @@ if (process.env.NODE_ENV !== "test") {
 if (process.env.NODE_ENV === "production") {
     app.use(compression({ threshold: 1 }));
     app.use(minify());
+    app.use(favicon(path.join(__dirname, "public/favicon.ico")));
+
 }
-app.use(favicon(path.join(__dirname, "public/favicon.ico")));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "uploads")));
 

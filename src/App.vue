@@ -496,12 +496,12 @@ export default {
     script: [
       {
         t: "application/ld+json",
-        i: JSON.stringify(require("../config/shema.json"))
+        i: JSON.stringify(require("../config/shema.json").default)
       },
       { type: "text/javascript", src: "/assets/js/installSDK.js", body: false }
     ],
     style: [
-      { type: "text/css", i: require("./assets/css/emojionearea.min.css") }
+      { type: "text/css", i: "/assets/css/emojionearea.min.css" }
     ]
   }
 };

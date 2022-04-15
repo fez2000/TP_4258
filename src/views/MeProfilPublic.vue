@@ -176,12 +176,10 @@ export default {
   padding: 0;
 }
 
-.profile-tabs::v-deep *  .md-card-tabs .md-list {
+.profile-tabs ::v-deep {
+  .md-card-tabs .md-list {
     justify-content: center;
   }
-  
-.profile-tabs::v-deep *  {
-  
 
   [class*="tab-pane-"] {
     margin-top: 3.213rem;

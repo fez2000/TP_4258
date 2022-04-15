@@ -331,19 +331,19 @@ export default {
   props: {
     header: {
       type: String,
-      default: require("../assets/img/bg1.jpeg")
+      default: require("../assets/img/bg1.jpeg").default
     },
     teamImg1: {
       type: String,
-      default: require("../assets/img/Jk_logo.png")
+      default: require("../assets/img/Jk_logo.png").default
     },
     teamImg2: {
       type: String,
-      default: require("../assets/img/faces/christian.jpg")
+      default: require("../assets/img/faces/christian.jpg").default
     },
     teamImg3: {
       type: String,
-      default: require("../assets/img/faces/kendall.jpg")
+      default: require("../assets/img/faces/kendall.jpg").default
     }
   },
   data() {

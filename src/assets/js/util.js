@@ -20,6 +20,7 @@ function getGuid() {
 }
 
 //ConfigStorage
+/*
 (function(window)
 {
     var keyPrefix = '';
@@ -206,7 +207,7 @@ function getGuid() {
         remove: storageRemoveValue
     };
 })(this);
-
+*/
 // Pollyfill for IE 9 support of CustomEvent
 (function () {
 
