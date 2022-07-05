@@ -149,7 +149,7 @@ bodyClass: "landing-page",
 props: {
     header: {
       type: String,
-      default: require("../assets/img/bg1.jpeg")
+      default: require("../assets/img/bg1.jpeg").default
     }
 },
 computed: {

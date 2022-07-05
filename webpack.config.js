@@ -363,7 +363,7 @@ module.exports = {
                 './src/**/*.js',
                 './src/**/*.vue',
             ]),
-                safelist: [/easy-autocomplete/,/snackbar/,/bottom-left/],
+            safelist: [/easy-autocomplete/,/snackbar/,/bottom-left/, /vue-tel-input/],
                   
         }),
         new CompressionPlugin({

@@ -125,7 +125,7 @@ export default {
     methods: {
         donate(e) {
             this.dialogToggle = false;
-            document.getElementById("donations").submit(e);
+            //.submit(e);
             this.submit()
         },
         nextStep(n) {
@@ -136,37 +136,37 @@ export default {
             }
         },
         updatePhone(v){
+            console.log(v)
             this.ccode = v.iso2;
 
         },
-        updateV(infos){
-            this.country = infos.country;
-            this.isValid = infos.isValid;
+        updateV(number){
+          
+           
+            //this.number = number;
 
         },
         v(info){
-            this.isValid = info.isValid;
-            this.number = info.number.e164;
+            console.log(info);
+            this.isValid = info.valid;
+            this.number = info.number;
             this.ccode = info.country.iso2;
+            return info.valid;
         },
         submit(){
-            const { ccode, amount, first_name, last_name, item_description, item_ref, number, public_key, email, lang , environement } = this.$data;
-            let formData = new FormData(), data = {
-                ccode,amount: ''+amount, first_name, last_name, "description":item_description, item_ref: ''+item_ref, "phone":number, public_key, email, lang , environement
+            
+            const { ccode, currency, amount, first_name, last_name, item_description, item_ref, number, public_key, email, lang , environement } = this.$data;
+            let formData = new FormData(document.getElementById("donations")), data = {
+               currency_code: currency, item_name: "DONATION", ccode,amount: ''+amount, first_name, last_name, "description":item_description, item_ref: ''+item_ref, "phone":number, public_key, email, lang , environement
             };
-            let r = '', i = -1;
+            /*let r = '', i = -1;
             for(let v in data){
                 r+=( i!= -1?'&':'' +`data[${v}]=${data[v]}`)
                 formData.append(`data[${v}]`, data[v]);
-            }
-            this.$axios.post("https://www.paymooney.com/api/v1.0/payment_url", r, {
-                mode: 'no-cors',
-                headers: {
-                    "content-type": "application/x-www-form-urlencoded",
-                     'Access-Control-Allow-Origin': '*',
-                }
-            }).then(console.log)
+            }*/
+            this.$axios.post("/api/paiement/paymooney", data).then(console.log)
             console.log("sub")
+            return false
         }
     },
     mounted() {},
@@ -178,7 +178,7 @@ export default {
 
             this.dialogToggle = true;
             this.e1 = 1;
-            this.amount = 1000;
+            this.amount = 100;
             this.item_description = "Ce don nous aideras beaucoup pour faire evoluer les choses.";
             if(this.project){
                 this.item_ref = this.project._id;

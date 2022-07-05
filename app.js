@@ -84,7 +84,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(detector.middleware());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false, limit: "20mb" }));
-app.use(cookieParser(token.generate()));
+app.use(cookieParser("fdfdff fdfdfd"));
 app.use(session({ secret: "gkfgo,fkg,fklgflkg,lkf,gklf@fdfndjkfndk133" }));
 app.use(i18n.init);
 

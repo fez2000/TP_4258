@@ -10,7 +10,7 @@ const like = require("../controllers/like");
 const notification = require("../controllers/notification");
 const poll = require("../controllers/poll");
 const paiement = require("../controllers/paiement");
-const ssr = require("../controllers/ssr");
+//const ssr = require("../controllers/ssr");
 const push = require("../controllers/push");
 const froala = require("../controllers/froala");
 const eventpost = require("../controllers/eventpost");
@@ -187,6 +187,7 @@ module.exports = app => {
     app.put("/api/poll", poll.put);
     app.get("/api/poll/close/:id", poll.close);
     app.post("/api/poll/addoptions", poll.addOption);
+    app.post("/api/paiement/paymooney", paiement.paymooney);
     app.get("/api/paiement/:status", paiement.status);
     app.post("/api/create-paypal-transaction", paiement.payer);
 };

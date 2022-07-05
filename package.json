@@ -2,6 +2,7 @@
     "name": "vue-express-webpack-4-fez2000",
     "version": "2.0.0",
     "private": false,
+    "bin": "./bin/www",
     "engines": {
         "node": ">=8.6.0",
         "npm": ">=5.6.0"
@@ -18,6 +19,18 @@
         "start": "node ./bin/www",
         "test": "mocha --timeout 10000",
         "test:browser": "mocha --timeout 10000  --reporter mocha-simple-html-reporter/index.js --reporter-options output=./test/index.html && open-cli  ./test/index.html || xdg-open ./test/index.html"
+    },
+    "pkg": {
+        "assets": [
+            "views/**/*",
+            "public/**/*",
+            "locales/**/*",
+            "key/**/*",
+            "config/**/*",
+            "app.js"
+        ],
+        "targets": [ "node14-linux-x64","node14-win-x64"],
+        "output": "dist"
     },
     "dependencies": {
         "@babel/core": "^7.17.9",
@@ -89,7 +102,6 @@
         "pdfjs-dist": "^2.2.228",
         "pretty-error": "^4.0.0",
         "public-ip": "^3.2.0",
-        "puppeteer": "^13.5.2",
         "readable-stream": "^3.6.0",
         "serve-favicon": "^2.5.0",
         "sha1": "^1.1.1",

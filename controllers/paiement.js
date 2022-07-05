@@ -9,7 +9,7 @@ const clientId = process.env.PAYPAL_CLIENT_PUBLIC;
 const clientSecret = process.env.PAYPAL_CLIENT_SECRET;
 const environment = new paypal.core.SandboxEnvironment(clientId, clientSecret);
 const client = new paypal.core.PayPalHttpClient(environment);
-
+const axios =  require('axios');
 // Construct a request object and set desired parameters
 
 // 2. Set up your server to receive a call from the client
@@ -43,3 +43,7 @@ exports.payer = (req, res) => {
 
     // 5. Return a successful response to the client with the order ID
 };
+
+exports.paymooney = (req, res) =>{
+    axios.post("https://www.paymooney.com/api/v1.0/payment_url", req.body).then(({ data }) => res.send(data)).catch((err) => res.send(err));
+}

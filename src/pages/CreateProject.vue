@@ -188,7 +188,7 @@ export default {
         }
       ],
       loading: false,
-      previewDefaultSrc: require("@/assets/img/defaultPreview.svg"),
+      previewDefaultSrc: require("@/assets/img/defaultPreview.svg").default,
       previewSrc: ""
     };
   },
