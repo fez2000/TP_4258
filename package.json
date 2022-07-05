@@ -13,6 +13,7 @@
         "dev:client": "NODE_ENV=development webpack --mode=development",
         "prod:client": "NODE_ENV=production webpack --mode=production",
         "prod:server": "DEBUG=vuexpressbp:* CONTEXT=unsecure NODE_ENV=production node ./bin/www",
+        "prodbin:server": "DEBUG=vuexpressbp:* CONTEXT=unsecure NODE_ENV=production node ./exe",
         "dev": "DEBUG=vuexpressbp:* CONTEXT=unsecure nodemon ./bin/www --config nodemon.json -e js & webpack --mode=development",
         "dev:secure": "DEBUG=vuexpressbp:* CONTEXT=secure nodemon ./bin/www --config nodemon.json -e js & webpack --mode=development",
         "prestart": "webpack --mode=production",
