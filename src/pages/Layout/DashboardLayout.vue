@@ -87,7 +87,7 @@
     >
       <template v-if="custumnav.active" v-slot:extension>
         <v-tabs
-          :align-with-title="!$vuetify.breakpoint.xsOnly"
+          :align-with-title="!$vuetify.breakpoint.xsOnly && !$vuetify.breakpoint.mobile"
           background-color="transparent"
           :grow="$vuetify.breakpoint.xsOnly"
           v-model="currentTab"
@@ -108,7 +108,7 @@
         bottom
         color="deep-purple accent-4"
       ></v-progress-linear>
-      <v-app-bar-nav-icon v-if="$vuetify.breakpoint.xsOnly" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.mobile" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-menu
         v-model="userOnlineMenuOpen"
         :offset-y="!mobileDevice"
