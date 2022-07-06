@@ -45,7 +45,6 @@ import "intersection-observer";
 import VueTelInput from 'vue-tel-input'
 import 'vue-tel-input/dist/vue-tel-input.css';
 import '@/assets/css/all.min.css';
-import 'material-design-icons-iconfont/dist/material-design-icons.css';
 // Import and use Vue Froala lib.
 //import VueFroala from "vue-froala-wysiwyg";
 // configure router
