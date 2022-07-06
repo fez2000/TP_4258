@@ -357,15 +357,15 @@ module.exports = {
             // both options are optional
             filename: isDev ? "[name].css" : "[name].[contenthash].css",
             chunkFilename: isDev ? "[id].css" : "[id].[contenthash].css",
-        }),new PurgeCssPlugin({
+        })/*,new PurgeCssPlugin({
             paths: glob.sync([
-                './src/**/*.html',
-                './src/**/*.js',
-                './src/**/*.vue',
+                './src/** /*.html',
+                './src/** /*.js',
+                './src/** /*.vue',
             ]),
             safelist: [/easy-autocomplete/,/snackbar/,/bottom-left/, /vue-tel-input/],
                   
-        }),
+        })*/,
         new CompressionPlugin({
             //    filename: '[path].gz[query]',
             algorithm: 'gzip',
