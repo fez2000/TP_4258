@@ -3,10 +3,10 @@
     <v-navigation-drawer
       
       v-model="drawer"
-      :clipped="$vuetify.breakpoint.lgAndUp"
+      :clipped="$vuetify.breakpoint.lgAndUp && !$vuetify.breakpoint.mobile"
       app
-      :expand-on-hover="!$vuetify.breakpoint.xsOnly"
-      :permanent="!$vuetify.breakpoint.xsOnly"
+      :expand-on-hover="!$vuetify.breakpoint.xsOnly && !$vuetify.breakpoint.mobile"
+      :permanent="!$vuetify.breakpoint.xsOnly && !$vuetify.breakpoint.mobile"
 
     >
       <template v-slot:prepend>
