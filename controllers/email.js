@@ -9,21 +9,22 @@ const Voter = mongoose.model('Voter');
 
 
 exports.check = (req, res) => {
-    const url = `https://emailverification.whoisxmlapi.com/api/v1?apiKey=at_xo3haWOOBfeCYBtZi1V2Ae2lIPwqj&emailAddress=${req.body.email}`;
-    axios.get(url).then((rep) => {
-        if (rep.data.formatCheck && rep.data.dnsCheck) {
-            return Voter.findOne({ email: req.body.email, isVerify: true }, (err, rep2) => {
-                if (err) {
-                    return res.send({ status: false, email: req.body.email, errors: err });
-                }
-                if (rep2) {
-                    return res.send({ status: false, email: req.body.email });
-                }
-                return res.send({ status: true, email: req.body.email });
-            });
-        }
-        res.send({ status: false, email: req.body.email });
-    }).catch(err => res.send({ status: null, email: req.body.email }));
+    //const url = `https://emailverification.whoisxmlapi.com/api/v1?apiKey=at_xo3haWOOBfeCYBtZi1V2Ae2lIPwqj&emailAddress=${req.body.email}`;
+    //axios.get(url).then((rep) => {
+ 
+    //}).catch(err => res.send({ status: null, email: req.body.email }));
+    if (rep.data.formatCheck && rep.data.dnsCheck) {
+        return Voter.findOne({ email: req.body.email, isVerify: true }, (err, rep2) => {
+            if (err) {
+                return res.send({ status: false, email: req.body.email, errors: err });
+            }
+            if (rep2) {
+                return res.send({ status: false, email: req.body.email });
+            }
+            return res.send({ status: true, email: req.body.email });
+        });
+    }
+    res.send({ status: false, email: req.body.email });
 };
 exports.findAccount = (req,res) => {
     Voter.findOne({ email: req.body.email },(err,voter)=>{

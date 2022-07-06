@@ -164,8 +164,11 @@ export default {
                 r+=( i!= -1?'&':'' +`data[${v}]=${data[v]}`)
                 formData.append(`data[${v}]`, data[v]);
             }*/
-            this.$axios.post("/api/paiement/paymooney", data).then(console.log)
-            console.log("sub")
+            this.$axios.post("/api/paiement/paymooney", data)
+            .then(({ data })=>{
+                window.location = data.payment_url;
+            });
+        
             return false
         }
     },
@@ -209,7 +212,7 @@ export default {
             email: "",
             lang: "fr",
             phone: "",
-            environement: "test"
+//            environement: "test"
         };
     },
     props: {

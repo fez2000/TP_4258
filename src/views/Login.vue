@@ -181,7 +181,7 @@ export default {
   props: {
     header: {
       type: String,
-      default: require("../assets/img/Photo_by_Medsile_via_Iwaria.jpeg")
+      default: require("../assets/img/Photo_by_Medsile_via_Iwaria.jpeg").default
     }
   },
   methods: {

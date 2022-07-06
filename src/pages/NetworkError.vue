@@ -25,7 +25,7 @@
 export default {
     data(){
         return{
-            img: require('@/assets/img/networkerror.svg')
+            img: require('@/assets/img/networkerror.svg').default
         }
     }
 }

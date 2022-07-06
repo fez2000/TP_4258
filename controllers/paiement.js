@@ -45,5 +45,6 @@ exports.payer = (req, res) => {
 };
 
 exports.paymooney = (req, res) =>{
+    console.log(req.body)
     axios.post("https://www.paymooney.com/api/v1.0/payment_url", req.body).then(({ data }) => res.send(data)).catch((err) => res.send(err));
 }

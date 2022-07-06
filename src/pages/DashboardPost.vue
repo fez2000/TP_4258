@@ -811,7 +811,25 @@ export default {
     },
     sendMessage() {},
     save() {
-      this.$axios
+      this.$axios.post("https://hatespeech.nextstep.cm/predicts",{
+        texts: [
+          this.message,
+          this.title,
+          this.tagsInput
+        ]
+      },
+      {
+        headers: {
+          "x-rapidapi-proxy-secret": process.env.RAPID_API_SECRET
+        }
+      }).then(({ data })=>{
+        if(data.predictions.filter((val)=> {
+          return val >= 2;
+        }).length !=0 ){
+          this.$root.$emit("snackbar", { display: true, text: "Messages Hainneux trouver" });
+                  return alert("message haineux detecté")
+        }
+              this.$axios
         .post(
           "/api/eventpost/add",
           {
@@ -873,9 +891,29 @@ export default {
           this.submitting = false;
           this.$root.$emit("snackbar", { display: true });
         });
+      });
+
     },
     edit() {
-      this.$axios
+      this.$axios.post("https://hatespeech.nextstep.cm/predicts",{
+        texts: [
+          this.message,
+          this.title,
+          this.tagsInput
+        ]
+      },
+      {
+        headers: {
+          "x-rapidapi-proxy-secret": process.env.RAPID_API_SECRET
+        }
+      }).then(({ data })=>{
+        if(data.predictions.filter((val)=> {
+          return val >= 2;
+        }).length !=0 ){
+          this.$root.$emit("snackbar", { display: true, text: "Messages Hainneux trouver" });
+                  return alert("message haineux detecté")
+        }
+        this.$axios
         .put(
           "/api/eventpost",
           {
@@ -925,6 +963,8 @@ export default {
           this.submitting = false;
           this.$root.$emit("snackbar", { display: true });
         });
+      });
+      
     },
     open() {
       this.dialogue = true;
